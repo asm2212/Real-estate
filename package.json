@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+   "dev": "nodemon api/index.js",
+   "start": "node api/index.js"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asm2212/mern-estate.git"
