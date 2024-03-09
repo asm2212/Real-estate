@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-   "dev": "nodemon api/index.js",
-   "start": "node api/index.js"
-    },
+    "dev": "nodemon api/index.js",
+    "start": "node api/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asm2212/mern-estate.git"
@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/asm2212/mern-estate#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "mogoose": "^0.0.1-security",
+    "mongoose": "^8.2.1",
     "nodemon": "^3.1.0"
   }
 }
