@@ -1,26 +1,32 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInError,
+} from "../redux/user/userSlice.js";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
-    password: ""
+    password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formError, setFormError] = useState(null); 
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(signInStart());
     try {
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -31,24 +37,22 @@ export default function SignIn() {
       });
       const data = await res.json();
       console.log(data);
-      // Reset form fields after successful submission
       setFormData({
-        username: "",
         email: "",
-        password: ""
+        password: "",
       });
+      dispatch(signInSuccess());
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
+      dispatch(signInError());
       if (error.response && error.response.status === 401) {
-        setError("Wrong password. Please try again.");
+        setFormError("Wrong password. Please try again.");
       } else if (error.response && error.response.status === 404) {
-        setError("User not found. Please check your email.");
+        setFormError("User not found. Please check your email.");
       } else {
-        setError("An error occurred. Please try again later.");
+        setFormError("An error occurred. Please try again later.");
       }
-    } finally {
-      setLoading(false);
-      navigate("/");
     }
   };
 
@@ -84,9 +88,10 @@ export default function SignIn() {
           {loading ? "Signing in..." : "Sign In"}
         </button>
       </form>
+      {formError && <div className="text-red-700 mt-2">{formError}</div>}
       {error && <div className="text-red-700 mt-2">{error}</div>}
       <div className="flex gap-2 mt-4">
-        <p>Don't have an account? </p>
+        <p>Dont have an account? </p>
         <Link to={"/sign-up"} className="text-red-700">
           Sign up
         </Link>
