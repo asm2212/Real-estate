@@ -44,8 +44,8 @@ Create a .env file in the root directory and add the following environment varia
 
 plaintext
 Copy code
-PORT=5000
-MONGODB_URI=your_mongodb_uri
+PORT=4000
+MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 Start the development server:
 
