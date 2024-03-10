@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 import UserRouter from './route/UserRoute.js';
+import AuthRouter from './route/AuthRoute.js';
+
 
 config();
 
@@ -18,3 +20,4 @@ app.listen(4000, () => {
 });
 
 app.use('/api/user',UserRouter);
+app.use('/api/auth',AuthRouter);
