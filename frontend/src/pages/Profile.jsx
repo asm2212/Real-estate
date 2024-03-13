@@ -135,7 +135,8 @@ export default function Profile() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
-      (error) => {
+      // eslint-disable-next-line no-unused-vars
+      (_error) => {
         setFileUploadError(true);
       },
       () => {
