@@ -3,4 +3,8 @@ export const test = (req, res) => {
         message: "api route",
       });
 
+
+
+};
+export const updateUser = (req, res,next) => {
 };
