@@ -86,6 +86,17 @@ export default function Profile() {
       dispatch(updateUserFailure(error.message));
     }
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   try{
+  //     dispatch(updateUserStart);
+  //     const res = fetch('/api/users' + parmas)
+  //   }
+  // };
+  
+  // useEffect(()=>{
+  //   setFormData(currenetUser)
+  //   console.log(currentUser)
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -161,3 +172,4 @@ export default function Profile() {
     </div>
   );
 }
+

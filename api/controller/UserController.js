@@ -1,16 +1,15 @@
+import { error } from "console";
 import User from "../model/Usermodel.js";
 import errorHandler from "../util/error.js";
 import bcrypt from 'bcrypt';
-
 
 export const test = (req, res) => {
     res.json({
         message: "api route",
       });
+};
 
-
-
-};export const updateUser = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) return next(errorHandler(401, 'Unauthorized'));
   try {
     if (req.body.password) {
@@ -34,3 +33,15 @@ export const test = (req, res) => {
     next(error);
   }
 };
+
+export const deleteUser = async(req, res, next) => {
+  if(req.user.id !== req.params.id)
+  return next(errorHandler(401,'you can only delete your own account!'));
+try{
+   await User.findByIdAndDelete(req.params.id);
+   res.status(200).json('user has been deleted');
+}
+catch (error){
+  next(error);
+}
+}
