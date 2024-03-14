@@ -6,7 +6,9 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from "../redux/user/userSlice.js";
+import { updateUserStart, updateUserSuccess, updateUserFailure,
+   deleteUserStart, deleteUserSuccess, deleteUserFailure, 
+   SignOutUserStart, SignOutUserFailure , SignOutUserSuccess} from "../redux/user/userSlice.js";
 import { app } from '../firebase.js';
 
 export default function Profile() {
@@ -96,6 +98,21 @@ export default function Profile() {
     }
   };
 
+  const handleSignOut = async() => {
+    try {
+      dispatch(SignOutUserStart());
+      const res = await fetch(`/api/auth/signout`);
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(SignOutUserFailure(data.message));
+        return;
+      }
+      dispatch(SignOutUserSuccess(data));
+    } catch (error) {
+      dispatch(SignOutUserFailure(error.message));
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="p-3 max-w-lg">
@@ -159,7 +176,7 @@ export default function Profile() {
           <span onClick={handleDelete} className="text-red-700 cursor-pointer">
             Delete the account
           </span>
-          <span className="text-red-700 cursor-pointer">Sign out</span>
+          <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign out</span>
         </div>
         {/* <p className="text-red-700 mt-5">{error ? error : ''}</p> */}
         <p className="text-green-700 mt-5">
