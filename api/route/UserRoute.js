@@ -6,6 +6,6 @@ import { checkToken } from "../util/checkUser.js";
 const router = express.Router();
 
 router.get("/test", test);
-router.post('/update/:id',checkToken,updateUser);    
+router.put('/update/:id',checkToken,updateUser);    
 
 export default router;
