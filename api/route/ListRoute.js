@@ -4,6 +4,6 @@ import { checkToken } from '../util/checkUser.js';
 
 const router = express.Router();
 
-router.get('/create',checkToken,createList);
+router.post('/create',checkToken,createList);
 
 export default router;

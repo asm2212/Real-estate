@@ -3,58 +3,61 @@ import  mongoose  from "mongoose";
 const listSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     description: {
         type: String,
-        required: true
+        required: true,
     },
     address: {
         type: String,
-        required: true
+        required: true,
     },
     regularPrice: {
         type: Number,
-        required: true
+        required: true,
     },
     discountPrice: {
         type: Number,
-        required: true
+        required: true,
     },
     bathRooms:{
         type: Number,
-        required: true
+        required: true,
     },
     bedRooms: {
         type: Number,
-        required: true
+        required: true,
     },
     furnished:{
         type: Boolean,
-        required: true
+        required: true,
     },
     parking:{
         type: Boolean,
-        required: true
+        required: true,
     },
     type:{
         type: String,
-        required: true
+        required: true,
     },
     offer:{
         type: Boolean,
-        required: true
+        required: true,
     },
     imageUrls: {
-        type: String,
-        required: true
+        type: Array,
+        required: true,
     },
     useRef: {
         type: String,
-        required: true
+        required: true,
     },
 
-}, { timestamps: true }
+},
+ { timestamps: true }
 );
 
 const List = mongoose.model('List', listSchema);
+
+export default List;
