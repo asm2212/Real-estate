@@ -4,7 +4,7 @@ function CreateList() {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">CreateList</h1>
-      <form className="flex flex-col sm:flex-row">
+      <form className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4">
           <input
             type="text"
@@ -103,6 +103,22 @@ function CreateList() {
             </div>
           </div>
         </div>
+        <div className="flex flex-col  flex-1 gap-4">
+            <p className="font-semibold">Images:
+                <span className="font-normal text-gray-700 ml-2">The first image will be the cover max 5</span>
+            </p>
+           <div className="flex gap-4">
+              <input  className="p-3 border border-gray-400 rounded w-full"
+               type="file" id="images" accept="image/*" multiple />
+               <button className="p-3 text-orange-600 border border-orange-600
+                   rounded hover:shadow-lg disabled:opacity-80">
+                Upload
+               </button>
+           </div>
+           <button className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-95 disabled:opacity-80"
+        >Create List</button>
+        </div>
+      
       </form>
     </main>
   );
