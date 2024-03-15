@@ -14,7 +14,7 @@ export default function CreateList() {
   });
   console.log(formData);
   const [imageUploadError,setImageUploadError] = useState(false);
-  const [uploading,setUploading] = useState(true);
+  const [uploading,setUploading] = useState(false);
 
   const handleImageSubmit = (e) => {
     e.preventDefault();
@@ -235,7 +235,7 @@ export default function CreateList() {
               className="p-3 text-orange-600 border border-orange-600
                    rounded hover:shadow-lg disabled:opacity-80"
             >
-             {uploading ? 'Uploading...' : 'Upload'}
+             {uploading ? "uploading" : "Upload"}
             </button>
           
           </div>
