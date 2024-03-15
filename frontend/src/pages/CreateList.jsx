@@ -14,14 +14,17 @@ export default function CreateList() {
   });
   console.log(formData);
   const [imageUploadError,setImageUploadError] = useState(false);
+  const [uploading,setUploading] = useState(true);
 
   const handleImageSubmit = (e) => {
     e.preventDefault();
     if (files.length > 0 && files.length + formData.imageUrls.length < 6) {
+      setUploading(true);
+      setImageUploadError(false);
       const promises = [];
 
       for (let i = 0; i < files.length; i++) {
-        promises.push(storeImage([files[i]])); // Pass an array with a single file
+        promises.push(storeImage([files[i]]));
       }
       Promise.all(promises).then((urls) => {
         setFormData({
@@ -29,11 +32,20 @@ export default function CreateList() {
           imageUrls: formData.imageUrls.concat(urls),
         });
         setImageUploadError(false);
-      }).catch(()=>{
+        setUploading(false);
+    //   }).catch(()=>{
+    //     setImageUploadError('image upload error');
+    //     setUploading(false);
+
+    //   });
+    }).catch((error) => {
         setImageUploadError('image upload error');
+        console.error('Error uploading images:', error);
+        setUploading(false);
       });
     }  else {
         setImageUploadError('you can only upload 5 image ');
+        setUploading(false);
     }
   };
 
@@ -201,22 +213,31 @@ export default function CreateList() {
             </span>
           </p>
           <div className="flex gap-4">
-            <input
+            {/* <input
               onChange={(e) => setFiles(e.target.files)} // Update this line
               className="p-3 border border-gray-400 rounded w-full"
               type="file"
               id="images"
               accept="image/*"
               multiple
-            />
+            /> */}
+       <input 
+       onChange={(e) => setFiles(Array.from(e.target.files))} 
+       className="p-3 border border-gray-400 rounded w-full" 
+       type="file" 
+       id="images" 
+       accept="image/*"
+        multiple />
             <button
               onClick={handleImageSubmit}
+              disabled={uploading}
               type="button"
               className="p-3 text-orange-600 border border-orange-600
                    rounded hover:shadow-lg disabled:opacity-80"
             >
-              Upload
+             {uploading ? 'Uploading...' : 'Upload'}
             </button>
+          
           </div>
           <p className="text-red-800 text-sx">{imageUploadError && imageUploadError}</p>
           {
