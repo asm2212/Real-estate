@@ -10,6 +10,7 @@ import { updateUserStart, updateUserSuccess, updateUserFailure,
    deleteUserStart, deleteUserSuccess, deleteUserFailure, 
    SignOutUserStart, SignOutUserFailure , SignOutUserSuccess} from "../redux/user/userSlice.js";
 import { app } from '../firebase.js';
+import {Link} from 'react-router-dom'
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -171,6 +172,10 @@ export default function Profile() {
           >
             {loading ? 'Loading...' : 'Update'}
           </button>
+        <Link className="bg-yellow-700 text-white p-3 rounded-lg hover:opacity-95" 
+        to={"/createList"}>
+        Create List
+        </Link>
         </form>
         <div className="flex justify-between mt-5">
           <span onClick={handleDelete} className="text-red-700 cursor-pointer">
