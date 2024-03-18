@@ -8,7 +8,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 export default function CreateList() {
+  const navigate = useNavigate();
   const {currentUser} = useSelector(state => state.user)
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -172,6 +174,7 @@ const handleSubmit = async(e) => {
         if(data.success === false){
             setError(data.message);
         }
+        navigate(`/list/${data._id}`);
     } catch (error) {
         setError(error.message);
         setLoading(false);
