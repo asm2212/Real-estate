@@ -291,7 +291,25 @@ const handleSubmit = async(e) => {
                 <span className="text-xs">$/month</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            {formData.offer && (
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  id="discountPrice"
+                  required
+                  min="100"
+                  max="100000000000000"
+                  className="p-3 border border-gray-400 rounded-lg"
+                  onChange={handleChange}
+                  value={formData.discountPrice}
+                />
+                <div>
+                  <p>discountPrice</p>
+                  <span className="text-xs">$/month</span>
+                </div>
+              </div>
+            )}
+            {/* <div className="flex items-center gap-2">
               <input
                 type="number"
                 id="discountPrice"
@@ -306,7 +324,7 @@ const handleSubmit = async(e) => {
                 <p>DiscountPrice</p>
                 <span className="text-xs">$/month</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="flex flex-col  flex-1 gap-4">
@@ -363,7 +381,7 @@ const handleSubmit = async(e) => {
     </div>
   ))
 }
-          <button  className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-95 disabled:opacity-80">
+          <button disabled = {loading || loading } className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-95 disabled:opacity-80">
            {loading ? 'creating...' : 'create list'}
           </button>
           <p className="text-red-800 text-sx">{error}</p>
