@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { app } from "../firebase.js";
 import {
@@ -7,7 +7,9 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import {useSelector} from 'react-redux';
 export default function CreateList() {
+  const {currentUser} = useSelector(state => state.user)
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -150,6 +152,8 @@ export default function CreateList() {
 const handleSubmit = async(e) => {
     e.preventDefault();
     try {
+      if(formData.imageUrls.length < 1) return setError('you must upload at least one image')
+      if (+formData.regularPrice < +formData.discountPrice) return setError('discount price must be less than regular price')
         setLoading(true);
         setError(false);
         const res = await fetch('/api/list/create',{
@@ -157,7 +161,11 @@ const handleSubmit = async(e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+              
+             ...formData,
+             useRef: currentUser._id,
+            }),
         });
         const data = await res.json();
         setLoading(false);
